@@ -30,7 +30,7 @@ img {
   padding-right: 1rem;
   margin-bottom: 7%;
 }
-#myTopnav1
+#myTopnav1 /* style header dans le formulaire de version mobile*/
 {
   display:none;
 }
@@ -190,7 +190,7 @@ main {
 
 /* add validation message */
 
-.validation
+.validation /* rajouté style de confirmation l'inscription*/
 { margin: 5% auto;
   width: 100%;
   height: 750px;
@@ -250,11 +250,6 @@ input {
   border: 2px solid #e54858;
 }
 
-/* input[data-error]::after {
-    content: attr(data-error);
-    font-size: 0.4em;
-    color: red;
-}  */
 
 .checkbox-label,
 .checkbox2-label {
@@ -359,7 +354,7 @@ input {
   width: 180px;
 }
 
-/* add .btn-close*/
+/* style button "fermer" dans le confirmation de l'instrption */
 .btn-close
 {
   background: #fe142f;
@@ -563,7 +558,7 @@ footer {
     margin-left: 13%;
     margin-top: 4%;
   }
-  
+   /* changer position footer */
   .copyrights {
     margin: 30px 0px 30px;
     text-align: center;
@@ -579,7 +574,7 @@ footer {
     opacity: 1;
   }
 }
-
+/*change position footer*/
  @media screen and (min-width: 1264px){
 
  .copyrights {
@@ -587,8 +582,9 @@ footer {
   margin-top: 6%;
 }}
 
-@media screen and (max-width: 540px) { /*modifier position et taille de logo*/
-  #myTopnav1
+
+@media screen and (max-width: 540px) { /*modifier position et taille de logo dans version mobile*/
+  #myTopnav1  /* le header dans le formulaire de version mobile*/
   {display:block;}
 
   .topnav a {display: none;}

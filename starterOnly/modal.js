@@ -1,11 +1,13 @@
 function editNav() {
   const x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
-    x.classList.add ("responsive"); //correct add classname
+   /* x.className += " responsive";*/ // code d'origin
+    x.classList.add ("responsive"); // correction,add classname "responsive"
   } else {
     x.className = "topnav";
   }
 }
+
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -26,12 +28,11 @@ function launchModal() {
  newDiv.style.display = "none";
 };
 
-
+//////////////////////////////////////////////
 // delete nav "Accueil"
 let nav = document.querySelector(".main-navbar");
 const navAccueil = document.querySelector(".main-navbar > .active");
 nav.removeChild(navAccueil);
-
 
 
 
@@ -40,20 +41,18 @@ const newDiv = document.createElement("div");
 newDiv.className = "validation";
 newDiv.innerHTML = "<p>Merci pour</p><p>Votre Inscription</p>";
 
-modalbg.appendChild(newDiv);
-
-const arrowClose = document.createElement("span");
+const arrowClose = document.createElement("span");// add x
 arrowClose.classList.add("close");
 newDiv.appendChild(arrowClose);
 
-const btnClose = document.createElement("button");
+const btnClose = document.createElement("button"); // add button "Fermer"
 btnClose.className = "btn-close";
 btnClose.innerHTML = "Fermer";
 newDiv.appendChild(btnClose);
 
+modalbg.appendChild(newDiv); //add inside div parent formulaire
 
-
-//validate form ,The data must be entered correctly
+//validate formulaire ,function principale
 
 document.getElementById("myform")
 .addEventListener("submit",validate);
@@ -61,29 +60,30 @@ document.getElementById("myform")
   function validate(event) {
     event.preventDefault();
     event.stopPropagation();
-    const conditions = 
+    const conditions = //array for all validations
     [validatePrenom(),validateNom(),validateEmail(),validateBirth(),
     validateQuantity(),validateRadio(),validateCondition()]
-  if (conditions.filter((func) => !func))
-      {
+  if(conditions.filter((func) => !func).length != 0){  // after flitre, if there is one or plus de function return false
         return;
       }
-      showMessage();
-      console.log("KKK");
-
+   else{  showMessage(); // show confirmation de l'inscription
+      
+    }
 };
+
 //validate prenom
 
 function validatePrenom(){
 if (prenom.value.trim() === "" || prenom.value.length < 2) /* not empty or at least 2 characters */
 {
 formData[0].setAttribute("data-error","Veuillez entrer 2 caractères ou plus pour le champ du prenom");
-formData[0].setAttribute("data-error-visible", true);
+formData[0].setAttribute("data-error-visible", true);// add message error
 return false;
 }
 else{
-formData[0].removeAttribute('data-error');
+formData[0].removeAttribute('data-error');   // if it's correct remove message arror
 formData[0].removeAttribute('data-error-visible');
+
 return true;
 }
 
@@ -101,6 +101,7 @@ if (nom.value.trim() === "" || nom.value.length < 2) /* not empty or at least 2 
 else{
       formData[1].removeAttribute('data-error');
       formData[1].removeAttribute('data-error-visible');
+      
       return true;
       }
   };
@@ -115,21 +116,23 @@ if (!regexEmail.test(email.value) || email.value.trim() === "" )/* not empty or 
 {
 formData[2].setAttribute('data-error','Veuillez inclure \"@\" dans l\'adress e-mail');
 formData[2].setAttribute('data-error-visible',true);
-console.log("email wrong");
+
 return false;
 }
 
 else{
   formData[2].removeAttribute('data-error');
   formData[2].removeAttribute('data-error-visible');
+  
   return true;
+  
   }
 }
 // validate birthday
 
 function validateBirth(){
 
-if (birth.value == "") 
+if (birth.value == "") // input can't be empty
 {
   formData[3].setAttribute('data-error','Vous devez entrer votre date de naissance');
   formData[3].setAttribute('data-error-visible',true);
@@ -138,22 +141,25 @@ if (birth.value == "")
  else {
   formData[3].removeAttribute('data-error');
   formData[3].removeAttribute('data-error-visible');
+  
   return true;
+  
  }
 }
 
 
-//function birthday can't be current day
+//function can't chose a future date
+birth.setAttribute('max','2022-12-19'); // add attr "max"
 function requireBirth () {
-  let today = new Date();
+  let today = new Date(); //get current date
   let year = today.getFullYear();
   let month = today.getMonth();
      
-if ( month < 10) // if number of month below 10, add "0" before
+if ( month < 10) // if number of month below 10, add "0" before the number
     {newMonth = "0" + (month + 1)} 
 else { newMonth = month + 1};
   
-if (today.getDate() < 10) {  //if number of day below 10, add "0" before
+if (today.getDate() < 10) {  //if number of day below 10, add "0" before the number
   newDay = "0"+ today.getDate()
 }
 else {
@@ -178,6 +184,7 @@ if(quantitySelect.value == "")
  else {
   formData[4].removeAttribute('data-error');
   formData[4].removeAttribute('data-error-visible');
+  
   return true;
  };
 
@@ -188,8 +195,8 @@ if(quantitySelect.value == "")
 
 function validateRadio(){
 
-  const checkRadio = document.querySelector("input[name='location']:checked");
-  if(!checkRadio){ // if radio is not chosen, show error message
+  const checkedRadio = document.querySelector("input[name='location']:checked");
+  if(!checkedRadio){ // if radio is not chosen, show error message
     formData[5].setAttribute('data-error','Veuillez choisir une ville');
     formData[5].setAttribute('data-error-visible',true);
     return false;}
@@ -197,7 +204,8 @@ function validateRadio(){
   else {
       formData[5].removeAttribute('data-error');
       formData[5].removeAttribute('data-error-visible');
-    return true;
+      return true;
+    
    }};
 
 
@@ -207,7 +215,7 @@ function validateRadio(){
   const checkBox2 = document.getElementById("checkbox2");
 
   function validateCondition(){
-    if(!checkBox1.checked == true){  //if first condition is not chosen
+    if(!checkBox1.checked){  //if first condition is not chosen
     formData[6].setAttribute('data-error','Veuillez vérifier que vous acceptez les conditions');
     formData[6].setAttribute('data-error-visible',true);
     return false;
@@ -216,12 +224,14 @@ function validateRadio(){
     else {
       formData[6].removeAttribute('data-error');
       formData[6].removeAttribute('data-error-visible');
+      
     return true;
+    
         }
   };
     
 
- // function show validation message
+ // function show the confirmation message
 
  function showMessage() {
 
@@ -229,12 +239,12 @@ function validateRadio(){
   newDiv.style.display = "flex";
  };
  
-// add event close validation message
+// close button"fermer" 
 
 btnClose.addEventListener("click",closeWindow);
 
 
-// fucntion close window by click the arrow
+// fucntion close window by click the arrow X
 document.querySelectorAll(".close")
 .forEach(close => close.addEventListener("click",closeWindow));
 
@@ -245,15 +255,8 @@ location.reload();/*reload page*/
 
 // add logo and nav into modal, version mobile
 
-const copy = document.getElementById("myTopnav").cloneNode(true);
-copy.setAttribute('id','myTopnav1');
-modalbg.appendChild(copy);
-modalbg.insertBefore(copy,inscription); //in html, deplace div topnav before modal 
-//test code
-const regexBirthday = /^([0-9]{2})([0-9]{2})([0-9]{4})$/;
+const copy = document.getElementById("myTopnav").cloneNode(true); // copy header
+copy.setAttribute('id','myTopnav1'); //add id 
+modalbg.appendChild(copy); // deplace the copy in modal 
+modalbg.insertBefore(copy,inscription); //in html, deplace div "myTopnav1" before div modal 
 
-function aaa(){
-console.log(copy);
-/* console.log(checkBox1.checked == true);*/
-};
-aaa(); 
