@@ -58,9 +58,9 @@ document.getElementById("myform")
     const conditions = //array for all validations
     [validatePrenom(),validateNom(),validateEmail(),validateBirth(),
     validateQuantity(),validateRadio(),validateCondition()]
-  if(conditions.filter(valid => !valid).length != 0){  // after flitre, if there is one or plus de function return false
+  if(conditions.filter(valid => !valid).length != 0){  // filter all function,if there is 1 or plus invalidate function, return false
         return;
-      }
+      }  // else there is 0 invalide function
    else{  showMessage(); // show confirmation de l'inscription
       
     }
