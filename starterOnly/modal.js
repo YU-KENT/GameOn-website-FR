@@ -29,11 +29,6 @@ function launchModal() {
 };
 
 //////////////////////////////////////////////
-// delete nav "Accueil"
-let nav = document.querySelector(".main-navbar");
-const navAccueil = document.querySelector(".main-navbar > .active");
-nav.removeChild(navAccueil);
-
 
 
 //add div validation message
@@ -63,7 +58,7 @@ document.getElementById("myform")
     const conditions = //array for all validations
     [validatePrenom(),validateNom(),validateEmail(),validateBirth(),
     validateQuantity(),validateRadio(),validateCondition()]
-  if(conditions.filter((func) => !func).length != 0){  // after flitre, if there is one or plus de function return false
+  if(conditions.filter(valid => !valid).length != 0){  // after flitre, if there is one or plus de function return false
         return;
       }
    else{  showMessage(); // show confirmation de l'inscription
@@ -150,23 +145,10 @@ if (birth.value == "") // input can't be empty
 
 //function can't chose a future date
 birth.setAttribute('max','2022-12-19'); // add attr "max"
-function requireBirth () {
-  let today = new Date(); //get current date
-  let year = today.getFullYear();
-  let month = today.getMonth();
-     
-if ( month < 10) // if number of month below 10, add "0" before the number
-    {newMonth = "0" + (month + 1)} 
-else { newMonth = month + 1};
-  
-if (today.getDate() < 10) {  //if number of day below 10, add "0" before the number
-  newDay = "0"+ today.getDate()
-}
-else {
-  newDay = today.getDate()
-};
 
-birth.setAttribute("max",year+"-"+newMonth+"-"+newDay);
+function requireBirth () {
+let today = new Date().toISOString().slice(0,10); //get current date
+birth.setAttribute("max",today);
 } ;
 
 requireBirth (); //run function
